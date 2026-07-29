@@ -270,14 +270,14 @@ Report security issues to: security@openbare.dev
 
 ## 📄 License
 
-MIT License - see [LICENSE](LICENSE) for details.
+Proprietary - Copyright 2026 nirholas. All rights reserved. See the [LICENSE](LICENSE) file for the full terms.
 
 ---
 
 ## 🙏 Acknowledgments
 
 - [TompHTTP](https://github.com/tomphttp) - Bare Server protocol
-- [Ultraviolet](https://github.com/nickg4422/ultraviolet) - Web proxy framework
+- [Ultraviolet](https://github.com/titaniumnetwork-dev/Ultraviolet) - Web proxy framework
 - [Titanium Network](https://titaniumnetwork.org/) - Proxy community
 
 ---
