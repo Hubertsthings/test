@@ -309,3 +309,10 @@ Proprietary - Copyright 2026 nirholas. All rights reserved. See the [LICENSE](LI
 Made with ❤️ by the OpenBare community
 
 </div>
+
+## Documentation
+
+Full documentation site: **https://nirholas.github.io/openbare/**
+
+- [Getting started](docs/getting-started.md) covers install and first run.
+- [Examples](docs/examples.md) has copy-paste snippets.
