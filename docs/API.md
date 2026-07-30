@@ -142,7 +142,7 @@ Detailed metrics and configuration.
   },
   "config": {
     "rate_limit": "100 req/60s",
-    "registry_url": "https://registry.openbare.dev"
+    "registry_url": "http://localhost:3000"
   }
 }
 ```
@@ -342,8 +342,11 @@ const client = new OpenBareClient({
   // Direct server list
   servers: ['https://bare1.com', 'https://bare2.com'],
   
-  // Or auto-discover from registry
-  registry: 'https://registry.openbare.dev',
+  // Or auto-discover from a registry you run yourself.
+  // No public registry is hosted right now: registry.openbare.dev does not
+  // resolve while hosting is being migrated. Start one with `npm run start:registry`.
+  registryUrl: 'http://localhost:3000',
+  autoDiscover: true,
   
   // Options
   timeout: 10000,        // Request timeout (ms)

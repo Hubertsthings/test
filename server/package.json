@@ -22,7 +22,7 @@
   "license": "SEE LICENSE IN LICENSE",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nichoals/openbare.git"
+    "url": "https://github.com/nirholas/openbare.git"
   },
   "dependencies": {
     "@tomphttp/bare-server-node": "^2.0.4",

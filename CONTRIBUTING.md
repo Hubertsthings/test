@@ -11,7 +11,7 @@ The easiest way to contribute is by running a public node:
 ```bash
 cd server
 npm install
-NODE_URL=https://your-domain.com REGISTRY_URL=https://registry.openbare.dev npm start
+NODE_URL=https://your-domain.com REGISTRY_URL=http://localhost:3000 npm start
 ```
 
 ### 2. Report Bugs

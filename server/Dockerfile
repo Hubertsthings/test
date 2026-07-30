@@ -1,32 +1,20 @@
 # ============================================================================
 # OpenBare Server Dockerfile
-# Multi-stage build for minimal production image
+#
+# Build context is this directory: `docker build -t openbare ./server`
+#
+# The npm lockfile lives at the repo root because `server` is an npm workspace,
+# so it is not present in this build context and `npm ci` cannot run here.
+# `npm install --omit=dev` resolves the same semver ranges from package.json.
 # ============================================================================
 
-# Stage 1: Build dependencies
-FROM node:20-alpine AS builder
-
-WORKDIR /app
-
-# Copy package files
-COPY package*.json ./
-
-# Install all dependencies (including dev)
-RUN npm ci
-
-# Copy source files
-COPY . .
-
-# ============================================================================
-
-# Stage 2: Production image
 FROM node:20-alpine AS production
 
 # Add labels
 LABEL org.opencontainers.image.title="OpenBare Server"
 LABEL org.opencontainers.image.description="A decentralized, censorship-resistant web proxy server"
 LABEL org.opencontainers.image.source="https://github.com/nirholas/openbare"
-LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.licenses="SEE LICENSE IN LICENSE"
 
 # Create non-root user for security
 RUN addgroup -g 1001 -S openbare && \
@@ -34,15 +22,13 @@ RUN addgroup -g 1001 -S openbare && \
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
-
 # Install production dependencies only
-RUN npm ci --only=production && \
+COPY package.json ./
+RUN npm install --omit=dev --no-audit --no-fund && \
     npm cache clean --force
 
-# Copy source files from builder
-COPY --from=builder /app/*.js ./
+# Copy source files
+COPY *.js ./
 
 # Change ownership to non-root user
 RUN chown -R openbare:openbare /app

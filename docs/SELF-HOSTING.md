@@ -58,9 +58,7 @@ npx wrangler domains add bare.yourdomain.com
 
 ## Railway
 
-### One-Click Deploy
-
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/openbare)
+There is no published Railway template for OpenBare, so deploy from your own fork:
 
 ### Manual Deploy
 
@@ -77,7 +75,7 @@ npx wrangler domains add bare.yourdomain.com
 PORT=8080
 NODE_ID=railway-node-1
 REGION=us-west
-REGISTRY_URL=https://registry.openbare.dev
+REGISTRY_URL=http://localhost:3000
 NODE_URL=https://your-app.railway.app
 ```
 
@@ -85,17 +83,25 @@ NODE_URL=https://your-app.railway.app
 
 ## Docker
 
-### Using Docker Hub Image
+### Building the Image
+
+No prebuilt image is published to a public registry yet. Build it from `server/Dockerfile`
+at the repo root:
 
 ```bash
+docker build -t openbare ./server
 docker run -d \
   --name openbare \
   -p 8080:8080 \
   -e NODE_ID=docker-node-1 \
   -e REGION=local \
-  -e REGISTRY_URL=https://registry.openbare.dev \
-  ghcr.io/nirholas/openbare:latest
+  -e NODE_URL=http://localhost:8080 \
+  -e REGISTRY_URL=http://localhost:3000 \
+  openbare
 ```
+
+`NODE_URL` is required when `NODE_ENV=production` (the image default); the server refuses
+to start without it.
 
 ### Using Docker Compose
 
@@ -105,12 +111,13 @@ version: '3.8'
 
 services:
   openbare:
-    image: ghcr.io/nirholas/openbare:latest
+    build: ./server
     ports:
       - "8080:8080"
     environment:
       - NODE_ID=docker-node-1
       - REGION=local
+      - NODE_URL=http://localhost:8080
       - LOG_LEVEL=info
     restart: unless-stopped
     healthcheck:
@@ -172,7 +179,7 @@ REGION=us-east
 NODE_URL=https://your-domain.com
 
 # Optional - Register with network
-REGISTRY_URL=https://registry.openbare.dev
+REGISTRY_URL=http://localhost:3000
 
 # Optional - Customize
 RATE_LIMIT_MAX=100
@@ -269,14 +276,14 @@ To make your node discoverable:
 
 ```bash
 NODE_URL=https://bare.yourdomain.com \
-REGISTRY_URL=https://registry.openbare.dev \
+REGISTRY_URL=http://localhost:3000 \
 npm start
 ```
 
 Verify registration:
 
 ```bash
-curl https://registry.openbare.dev/nodes
+curl http://localhost:3000/nodes
 ```
 
 ---
