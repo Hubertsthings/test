@@ -62,7 +62,7 @@ export const config = {
   },
   
   // Bare server settings
-  bare: {
+  bare: { 
     path: '/bare/',
     maintainer: {
       email: process.env.MAINTAINER_EMAIL || 'admin@openbare.dev',
